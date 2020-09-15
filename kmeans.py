@@ -1,5 +1,6 @@
 from pandas import DataFrame, Series
-import numpy as np
+from numpy import array, power, sqrt
+from numpy import sum as np_sum
 
 
 class KMeans:
@@ -54,7 +55,7 @@ class KMeans:
         # Select a list of centroids to be the groups
         # implementation will use random observations for centroid
         # initialization
-        centroids = np.array(data.sample(n=self.k, axis=0))
+        centroids = array(data.sample(n=self.k, axis=0))
         membership = Series(index=data.index)
 
         # algorithm converges when the memberships and centroids stablize
@@ -134,7 +135,7 @@ class KMeans:
             centroids[i] = data.where(membership == i).mean(axis=0).values
 
         # check for convergence
-        if np.sum(centroids == old_centroids, axis=1).all():
+        if np_sum(centroids == old_centroids, axis=1).all():
             return True
         else:
             return False
@@ -156,4 +157,4 @@ class KMeans:
         Formula for Euclidean Distance:
             dist = sqrt(sum((a[1]+b[1])^2 + ... + (a[n]+b[n])^2))
         '''
-        return np.sqrt(np.sum(np.power(data - centroid, 2), axis=1))
+        return sqrt(np_sum(power(data - centroid, 2), axis=1))
