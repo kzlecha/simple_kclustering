@@ -25,7 +25,6 @@ def kmeans(data, k):
     membership = Series(index=data.index)
 
     # algorithm converges when the memberships and centroids stop changing
-    num = 0
     converged = False
     while(not converged):
         # calculate distance between all data and centers (matricies)
@@ -44,14 +43,12 @@ def kmeans(data, k):
         old_centroids = centroids.copy()
         
         # update clusters median
-        centroids = data.mean(axis=0).values
+        for i in range(0,k):
+            # update the centroid's range
+            centroids[i] = data.where(membership == i).mean(axis=0, skipna=True).values
 
         # check for convergence
-        if np.sum(centroids == old_centroids) == k:
+        if np.sum(centroids == old_centroids, axis=1).all():
             converged = True
-        if num == 5:
-            converged = True
-        else:
-            num += 1
     
     return centroids, membership
