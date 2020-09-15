@@ -36,12 +36,9 @@ def kmeans(data, k):
         for i in range(0,k):
             # calculate the euclidean distance to each centroid
             distance.loc[:,i] = np.sqrt(np.sum(np.power(data.values - centroids[i], 2), axis=1))
-            print(distance)
 
         # assign group memberships
-        closest_indicies = distance[i].idxmin()
-        membership.loc[closest_indicies] = i
-        print(membership)
+        membership = distance.idxmin(axis=1)
 
         #calcuate new group centroids
         old_centroids = centroids.copy()
@@ -50,7 +47,6 @@ def kmeans(data, k):
         centroids = data.mean(axis=0).values
 
         # check for convergence
-        print(np.sum(centroids == old_centroids))
         if np.sum(centroids == old_centroids) == k:
             converged = True
         if num == 5:
@@ -58,4 +54,4 @@ def kmeans(data, k):
         else:
             num += 1
     
-    return centroids, memberships
+    return centroids, membership
