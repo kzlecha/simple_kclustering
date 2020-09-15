@@ -59,31 +59,3 @@ def kmeans(data, k):
             num += 1
     
     return centroids, memberships
-
-
-def euclidian_distance(point1, point2):
-    '''
-    find the euclidean distance between two points
-    ---
-    inputs:
-        @param point1: a Series for a data observation
-        @param point2: a Series for a different data observation
-    ---
-    output:
-        the euclidean distance between the two points
-    ---
-    Assumptions:
-        - point1 and point2 should be same dimension
-        - point1 and point2 should not contain NaN
-    Formula for Euclidean Distance:
-        dist = sqrt(sum((a[1]+b[1])^2 + ... + (a[n]+b[n])^2))
-    '''
-    if len(point1) != len(point2):
-        raise ValueException("points should be same dimension")
-    
-    sum_distance = 0;
-    for i in range(0, len(point1)):
-        # determine the distance in the current dimension
-        distance_part = 0
-
-    return np.sqrt(sum_distance)
