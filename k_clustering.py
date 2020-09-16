@@ -19,6 +19,7 @@ def scale(data, method=None):
         raise ValueError("Acceptable scale methods are:"+
                             "[False, MinMax, Standardize]")
 
+    # scale
     if method == "MinMax":
         return (data-data.min())/(data.max() - data.min())
     if method == "Standardize":
@@ -37,7 +38,15 @@ class KClustering:
     
     def _setup(self, data):
         '''
-        set up necessary items for 
+        set up necessary items for data processing.
+        ---
+        inputs:
+            @param data: pandas dataframe with n observations and p attributes
+        ---
+        outputs:
+            centroids: list of randomly initialized centroids
+            membership: initalizedSeries denoting what group each obversation
+                        belongs to. Note that it is initialized to NaN
         '''
         valid_data = self._check_input(data)
         if not valid_data:
