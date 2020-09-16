@@ -1,7 +1,12 @@
 # simple_kmeans
 COSC 499 - Simple Git Excercise: https://people.ok.ubc.ca/bowenhui/499/gitex_indiv.html
 
-A simple KMeans and KMedian classification algorithm in python, as well as a scaling feature.
+A simple KMeans and KMedian classification algorithm in Python3, as well as a scaling feature.
+
+## Requirements
+This code was written in Python3 with pandas and numpy.
+
+It is suggested to run a python3 virtual environment and install the requirements with ```pip install -r requirements.txt``
 
 ## KMeans
 This is an implementation of the KMeans Clustering algorithm in Python. It is used as an unsupervised learning cluster algorithm to determine groups within data.
