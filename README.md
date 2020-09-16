@@ -1,7 +1,12 @@
 # simple_kmeans
 COSC 499 - Simple Git Excercise: https://people.ok.ubc.ca/bowenhui/499/gitex_indiv.html
 
-A simple kmeans and kmedian classification algorithm in python
+A simple KMeans and KMedian classification algorithm in Python3, as well as a scaling feature.
+
+## Requirements
+This code was written in Python3 with pandas and numpy.
+
+It is suggested to run a python3 virtual environment and install the requirements with```pip install -r requirements.txt```
 
 ## KMeans
 This is an implementation of the KMeans Clustering algorithm in Python. It is used as an unsupervised learning cluster algorithm to determine groups within data.
@@ -27,4 +32,8 @@ Distance is calculated using euclidean distance. The current implementation cann
 
 The algorithm can only fit and predict on data enterred, but will not make predictions based on the fitted model. Such feature would be implemented at a later time.
 
-The algorithm has an option for feature scaling using either MinMax or Standardization.
+## KMedian
+KMedians is a variant on the KMeans clustering algorithm that is designed to create centroids by the median of its group instead of the mean. In this way, KMedians is more robust to outliers and anomalies than KMeans
+
+### Assumptions, Strengths, and Weaknesses:
+Because KMedians is a variant of KMedian, it has the same assumptions, strengths, and weaknesses. However, in comparision to KMeans, KMedian is more robust to outliers and anomalies.

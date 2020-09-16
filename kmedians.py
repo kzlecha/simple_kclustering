@@ -2,17 +2,15 @@ from k_clustering import KClustering
 from pandas import DataFrame, Series
 
 
-class KMeans(KClustering):
+class KMedians(KClustering):
     '''
-    KMeans Clustering Algorithm
+    KMedians Clustering Algorithm
     Unsupervised Machine Learning with no underlying statistical model
 
-    Algorithm:
-        1. start with k random centroids (use points within the data)
-        2. Assign all observations to their closest centroid
-        3. recalcuate the groups means and call these your new centroids
-        4. repeat 2,3 until no more changes in centroids
-
+    KMedians is a variant on the KMeans clustering algorithm that is designed
+    to create centroids by the median of its group instead of the mean.
+    In this way, KMedians is more robust to outliers and anomalies than KMeans
+    
     Assumptions:
         - variance distribution of each attribute is spherical
         - all variables have same variance
@@ -21,6 +19,7 @@ class KMeans(KClustering):
     Strengths:
         - converges quickly (for clustering...)
         - Space Complexity: nk
+        - more robust to outliers and anomalies than KMeans
 
     Weaknesses:
         - all clusters are spheres with the same radius
@@ -35,7 +34,7 @@ class KMeans(KClustering):
 
     def fit(self, data):
         '''
-        runs the KMeans classification algorithm on a dataframe
+        runs the KMedians classification algorithm on a dataframe
         ---
         Inputs:
             @param data: pandas dataframe with n observations and p attributes
@@ -43,7 +42,7 @@ class KMeans(KClustering):
         ---
         Outputs:
             saves centroids and memberships to object.
-            centroids: the center/mean of the different groups
+            centroids: the center/median of the different groups
             memberships: classification membership list for every observation
                          in the sample. This classification is only a local
                          solutation because centroids are assined randomly
@@ -81,13 +80,13 @@ class KMeans(KClustering):
 
     def fit_predict(self, data):
         '''
-        runs the KMeans classification algorithm on a dataframe
+        runs the KMedians classification algorithm on a dataframe
         ---
         Inputs:
             @param data: pandas dataframe with n observations and p attributes
         ---
         Outputs:
-            centroids: the center/mean of the different groups
+            centroids: the center/median of the different groups
             memberships: classification membership list for every observation
                          in the sample. This classification is only a local
                          solutation because centroids are assined randomly
@@ -97,7 +96,7 @@ class KMeans(KClustering):
 
     def _has_converged(self, data, centroids, membership):
         '''
-        check to see if the kmeans algorithm has converged
+        check to see if the kmedians algorithm has converged
         convergence occurs when the 
         ---
         inputs:
@@ -115,11 +114,10 @@ class KMeans(KClustering):
         # update clusters median
         for i in range(0,self.k):
             # update the centroid's range
-            centroids[i] = data.where(membership == i).mean(axis=0).values
+            centroids[i] = data.where(membership == i).median(axis=0).values
 
         # check for convergence
         if (centroids == old_centroids).all():
             return True
         else:
             return False
-
