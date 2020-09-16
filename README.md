@@ -3,6 +3,11 @@ COSC 499 - Simple Git Excercise: https://people.ok.ubc.ca/bowenhui/499/gitex_ind
 
 A simple KMeans and KMedian classification algorithm in Python3, as well as a scaling feature.
 
+### inputs:
+The user must input a data matrix for the algorithm to find groups within.
+### outputs:
+groupings according to which other datapoints are the closest in nD space.
+
 ## Requirements
 This code was written in Python3 with pandas and numpy.
 
