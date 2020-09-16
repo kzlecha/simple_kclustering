@@ -27,4 +27,4 @@ Distance is calculated using euclidean distance. The current implementation cann
 
 The algorithm can only fit and predict on data enterred, but will not make predictions based on the fitted model. Such feature would be implemented at a later time.
 
-The algorithm has an option for feature scaling.
+The algorithm has an option for feature scaling using either MinMax or Standardization.
