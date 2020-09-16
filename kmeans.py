@@ -141,7 +141,7 @@ class KMeans:
             centroids[i] = data.where(membership == i).mean(axis=0).values
 
         # check for convergence
-        if np_sum(centroids == old_centroids, axis=1).all():
+        if (centroids == old_centroids).all():
             return True
         else:
             return False
