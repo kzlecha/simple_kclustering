@@ -1,6 +1,7 @@
 from kmeans import KMeans
 from numpy import array
 from pandas import DataFrame, Series
+from pandas.testing import assert_frame_equal
 
 import unittest
 
@@ -79,6 +80,39 @@ class TestKMeans(unittest.TestCase):
         centroids = DataFrame([[0,0,0], [4,4,4], [-4,-4,-4]]).values
         self.assertTrue(KMeans(k=3)._has_converged(data,centroids,memberships))
 
+    def test_scale(self):
+        '''
+        test to ensure minmax scaling and standardizing produce correct results
+        the input and the calculated versions have different datatypes
+        '''
+        data = DataFrame([[1,0,1,0],
+                          [2,1,3,0],
+                          [0,2,1,0],
+                          [5,6,5,6],
+                          [7,6,6,7],
+                          [7,5,6,7]])
+
+        # check standardize scale
+        scaled_data = DataFrame([[-0.866703, -1.253925, -1.140532, -0.908341],
+                                 [-0.541689, -0.877747, -0.285133, -0.908341],
+                                 [-1.191716, -0.501570, -1.140532, -0.908341],
+                                 [0.433351,  1.003140,  0.570266,  0.726672],
+                                 [1.083378,  1.003140,  0.997965,  0.999175],
+                                 [1.083378,  0.626962,  0.997965,  0.999175]])
+
+        test_data = KMeans(scale_data="Standardize")._scale(data)
+        assert_frame_equal(scaled_data, test_data, check_dtype=False)
+
+        # check minmax scale
+        scaled_data = DataFrame([[0.142857, 0.000000, 0.0, 0.000000],
+                                 [0.285714, 0.166667, 0.4, 0.000000],
+                                 [0.000000, 0.333333, 0.0, 0.000000],
+                                 [0.714286, 1.000000, 0.8, 0.857143],
+                                 [1.000000, 1.000000, 1.0, 1.000000],
+                                 [1.000000, 0.833333, 1.0, 1.000000]])
+
+        test_data = KMeans(scale_data="MinMax")._scale(data)
+        assert_frame_equal(scaled_data, test_data, check_dtype=False)
 
 # run the unittests
 if __name__ == "__main__":

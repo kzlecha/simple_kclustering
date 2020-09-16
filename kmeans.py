@@ -29,9 +29,10 @@ class KMeans:
         - will find exactly k clusters even if none, more, or less exist
     '''
 
-    def __init__(self, k=4, max_iterations=258):
+    def __init__(self, k=4, max_iterations=258, scale_data=False):
         self.k = k
         self.max_iterations = max_iterations
+        self.scale_data = scale_data
 
     def fit(self, data):
         '''
@@ -52,11 +53,14 @@ class KMeans:
         if not valid_data:
             raise ValueError('Data cannot be empty or contain nulls')
 
+        if self.scale_data:
+            data = self.scale(data)
+
         # Select a list of centroids to be the groups
         # implementation will use random observations for centroid
         # initialization
         centroids = array(data.sample(n=self.k, axis=0))
-        membership = Series(index=data.index)
+        membership = Series(index=data.index, dtype="int")
 
         # algorithm converges when the memberships and centroids stablize
         converged = False
@@ -164,3 +168,26 @@ class KMeans:
             dist = sqrt(sum((a[1]+b[1])^2 + ... + (a[n]+b[n])^2))
         '''
         return sqrt(np_sum(power(data - centroid, 2), axis=1))
+
+    def _scale(self, data):
+        '''
+        scale the data for use in KMeans algorithm
+        KMeans needs scaled data for optimal work
+        ---
+        input:
+            @param data: pandas dataframe with n observations and p attributes
+        ---
+        output:
+            modify input to be a scaled dataframe
+        '''
+        # check if desired scale is currently implemented
+        if not self.scale_data in [False, "MinMax", "Standardize"]:
+            raise ValueError("Acceptable scale methods are:"+
+                             "[False, MinMax, Standardize]")
+
+        if self.scale_data == "MinMax":
+            return (data-data.min())/(data.max() - data.min())
+        if self.scale_data == "Standardize":
+            return (data-data.mean())/data.std()
+        else:
+            return data
