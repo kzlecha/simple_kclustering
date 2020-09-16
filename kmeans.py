@@ -78,7 +78,7 @@ class KMeans:
             membership = distance.idxmin(axis=1)
 
             # check exit condition
-            converged = self._check_convergence(data, centroids, membership)
+            converged = self._has_converged(data, centroids, membership)
 
             iterations += 1
             if iterations == self.max_iterations:
@@ -118,15 +118,22 @@ class KMeans:
         else:
             return True
 
-    def _check_convergence(self, data, centroids, membership):
+    def _has_converged(self, data, centroids, membership):
         '''
         check to see if the kmeans algorithm has converged
         convergence occurs when the 
         ---
         inputs:
             @param data: pandas dataframe with n observations and p attributes
+            @param centroids: numpy 2D array representing datavectors
+            @param membership: Series denoting what group each datapoint is in
+        ---
+        outputs:
+            True if the algorithm has converged and centroids do not change
+            False otherwise
         '''
         #calcuate new group centroids
+        print(centroids)
         old_centroids = centroids.copy()
         
         # update clusters median
