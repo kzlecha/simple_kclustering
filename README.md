@@ -6,7 +6,7 @@ A simple KMeans and KMedian classification algorithm in Python3, as well as a sc
 ## Requirements
 This code was written in Python3 with pandas and numpy.
 
-It is suggested to run a python3 virtual environment and install the requirements with ```pip install -r requirements.txt``
+It is suggested to run a python3 virtual environment and install the requirements with```pip install -r requirements.txt```
 
 ## KMeans
 This is an implementation of the KMeans Clustering algorithm in Python. It is used as an unsupervised learning cluster algorithm to determine groups within data.
