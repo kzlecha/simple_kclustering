@@ -133,7 +133,6 @@ class KMeans:
             False otherwise
         '''
         #calcuate new group centroids
-        print(centroids)
         old_centroids = centroids.copy()
         
         # update clusters median
