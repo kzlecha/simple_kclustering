@@ -48,6 +48,7 @@ class KClustering:
             membership: initalizedSeries denoting what group each obversation
                         belongs to. Note that it is initialized to NaN
         '''
+        # check to see if input contains NaN or is empty
         valid_data = self._check_input(data)
         if not valid_data:
             raise ValueError('Data cannot be empty or contain nulls')
